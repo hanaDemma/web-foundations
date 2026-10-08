@@ -8,7 +8,7 @@ const noteCount = document.querySelector("#note-count");
 const errorMessage = document.querySelector("#error-message");
 const clearAllBtn = document.querySelector("#clear-all-btn");
 
-const STORAGE_KEY = "quicknotes-notes";
+const STORAGE_KEY = "quicknotes-app-notes";
 
 // ---------- Notes data ----------
 let notes = loadNotes();
