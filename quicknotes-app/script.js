@@ -129,7 +129,7 @@ noteForm.addEventListener("submit", event => {
   }
 
   const newNote = {
-    id: Date.now(),
+    id: Date.now() + Math.random(),
     text: text,
     category: category,
     createdAt: new Date().toLocaleString()
