@@ -1,0 +1,220 @@
+/* Box-sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Page */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background-color: #0ba184;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+header p {
+  margin: 5px 0 0;
+}
+
+/* Main */
+main {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Sections */
+section {
+  background-color: white;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+/* Form */
+#note-form {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+}
+
+#note-form > div {
+  flex: 1;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0ba184;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Search */
+#search-input {
+  margin-bottom: 10px;
+}
+
+/* Error */
+#error-message {
+  color: #b91c1c;
+  font-weight: bold;
+  min-height: 24px;
+}
+
+/* Notes list */
+#notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Note cards */
+.note-card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background-color: #fafafa;
+}
+
+.note-card p {
+  margin: 5px 0;
+}
+
+.note-text {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.note-category {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.note-date {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+/* Category styles */
+.category-personal {
+  border-left: 5px solid teal;
+}
+
+.category-personal .note-category {
+  background-color: #d5f5ef;
+  color: #087f6b;
+}
+
+.category-work {
+  border-left: 5px solid darkred;
+}
+
+.category-work .note-category {
+  background-color: #f5dcdc;
+  color: darkred;
+}
+
+.category-study {
+  border-left: 5px solid blue;
+}
+
+.category-study .note-category {
+  background-color: #dce8ff;
+  color: #174ea6;
+}
+
+/* Delete button */
+.delete-btn {
+  background-color: #b91c1c;
+  margin-top: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #991b1b;
+}
+
+/* Clear all */
+#clear-all-btn {
+  background-color: #555;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #222;
+  color: white;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  #note-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #note-form > div {
+    width: 100%;
+  }
+
+  #note-form button {
+    width: 100%;
+  }
+
+  main {
+    padding: 0 12px;
+  }
+
+  section {
+    padding: 18px;
+  }
+}
