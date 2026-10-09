@@ -163,16 +163,16 @@ searchInput.addEventListener("input", () => {
 
 // ---------- Clear all ----------
 clearAllBtn.addEventListener("click", () => {
-  if (notes.length === 0) {
-    return;
-  }
+  console.log("Clear all button clicked");
+  console.log("Number of notes:", notes.length);
 
   const confirmed = confirm("Delete all notes?");
 
   if (confirmed) {
     notes = [];
-    saveNotes();
+    localStorage.removeItem(STORAGE_KEY);
     render();
+    console.log("All notes cleared");
   }
 });
 
