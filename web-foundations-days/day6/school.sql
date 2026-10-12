@@ -17,6 +17,7 @@ CREATE TABLE courses (
 
 -- 3. Create the enrolments table
 -- This join table connects students and courses.
+
 CREATE TABLE enrolments (
     enrolment_id INTEGER PRIMARY KEY,
     student_id INTEGER NOT NULL,
@@ -24,13 +25,16 @@ CREATE TABLE enrolments (
     grade TEXT,
 
     FOREIGN KEY (student_id)
-        REFERENCES students(student_id),
+        REFERENCES students(student_id)
+        ON DELETE CASCADE,
 
     FOREIGN KEY (course_id)
-        REFERENCES courses(course_id),
+        REFERENCES courses(course_id)
+        ON DELETE CASCADE,
 
     UNIQUE (student_id, course_id)
 );
+
 
 -- Insert at least 3 students
 INSERT INTO students (student_id, name, email) VALUES
