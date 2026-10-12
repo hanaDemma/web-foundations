@@ -1,4 +1,3 @@
-
 # School Database Design
 
 ## 1. Overview
@@ -23,16 +22,22 @@ The `courses` table stores information about courses offered by the school.
 - `course_name`: Name of the course, which is required and unique.
 - `instructor`: Name of the instructor, which is required.
 
+
+
 ### Enrolments
 
 The `enrolments` table records which students are enrolled in which courses and stores their grades.
 
-- `enrolment_id`: Primary key for each enrolment.
-- `student_id`: Foreign key referencing the students table.
-- `course_id`: Foreign key referencing the courses table.
-- `grade`: The student's grade for the course.
+- `enrolment_id`: Primary key that uniquely identifies each enrolment.
+- `student_id`: Foreign key referencing `students(student_id)`, with `ON DELETE CASCADE`. When a student is deleted, all their enrolment records are automatically deleted.
+- `course_id`: Foreign key referencing `courses(course_id)`, with `ON DELETE CASCADE`. When a course is deleted, all enrolment records associated with that course are automatically deleted.
+- `grade`: Stores the student's grade for the course.
 
 The combination of `student_id` and `course_id` must be unique to prevent the same student from enrolling in the same course twice.
+
+**Referential integrity:** The `ON DELETE CASCADE` clauses prevent orphaned enrolment records when a student or course is removed. SQLite foreign-key enforcement must be enabled using `PRAGMA foreign_keys = ON;`.
+
+
 
 ## 3. Relationships
 
