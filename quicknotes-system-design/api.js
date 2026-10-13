@@ -15,6 +15,7 @@ let notes = [];
 let busy = false;
 
 /* ---------- reusable request helper ---------- */
+// Returns { status, data } so callers can show the HTTP status code.
 async function request(url, options = {}) {
   const response = await fetch(url, {
     headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -24,7 +25,7 @@ async function request(url, options = {}) {
     throw new Error(`Request failed: ${response.status} ${response.statusText}`);
   }
   const text = await response.text();
-  return text ? JSON.parse(text) : null;
+  return { status: response.status, data: text ? JSON.parse(text) : null };
 }
 
 /* ---------- API functions ---------- */
@@ -88,9 +89,10 @@ async function handleLoad() {
   setBusy(true);
   setStatus("Loading notes...", "loading");
   try {
-    notes = await getNotes();
+    const { status, data } = await getNotes();
+    notes = data;
     render();
-    if (notes.length > 0) setStatus(`Loaded ${notes.length} notes.`, "success");
+    if (notes.length > 0) setStatus(`Loaded ${notes.length} notes (HTTP ${status}).`, "success");
   } catch (err) {
     setStatus(err.message || "Could not load notes.", "error");
   } finally {
@@ -109,12 +111,16 @@ async function handleSubmit(event) {
   setBusy(true);
   setStatus("Saving note...", "loading");
   try {
-    const created = await createNote({ title: title.trim(), body: bodyInput.value, userId: 1 });
+    const { status, data: created } = await createNote({
+      title: title.trim(),
+      body: bodyInput.value,
+      userId: 1,
+    });
     // JSONPlaceholder always returns id 101, so make local ids unique
     notes.unshift({ ...created, id: `local-${Date.now()}` });
     form.reset();
     render();
-    setStatus("Note created.", "success");
+    setStatus(`Note created (HTTP ${status}, id ${created.id}).`, "success");
   } catch (err) {
     setStatus(err.message || "Could not create note.", "error");
   } finally {
@@ -127,10 +133,10 @@ async function handleDelete(id) {
   setStatus("Deleting note...", "loading");
   try {
     // local-only notes were never really stored, but we still exercise DELETE
-    await removeNote(String(id).startsWith("local-") ? 1 : id);
+    const { status } = await removeNote(String(id).startsWith("local-") ? 1 : id);
     notes = notes.filter((n) => n.id !== id);
     render();
-    if (notes.length > 0) setStatus("Note deleted.", "success");
+    if (notes.length > 0) setStatus(`Note deleted (HTTP ${status}).`, "success");
   } catch (err) {
     setStatus(err.message || "Could not delete note.", "error");
   } finally {
